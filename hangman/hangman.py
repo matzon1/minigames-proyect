@@ -22,29 +22,29 @@ def hangman():
 
     while len(word_letters) > 0 and lives > 0:
         print('You have used these letters: ', ' '.join(used_letters))
+        word_list = [letter if letter in used_letters else '-' for letter in word]
+        print('Current word: ', ' '.join(word_list))
 
-    word_list = [letter if letter in used_letters else '-' for letter in word]
-    print('Current word: ', ' '.join(word_list))
+        user_letter = input('Guess a letter: ').upper()
+        if user_letter in alphabet - used_letters:
+            used_letters.add(user_letter)
+            if user_letter in word_letters:
+                word_letters.remove(user_letter)
+                print('')
 
-    user_letter = input('Guess a letter: ').upper()
-    if user_letter in alphabet - used_letters:
-        used_letters.add(user_letter)
-        if user_letter in word_letters:
-            word_letters.remove(user_letter)
-        
-        else: 
-            lives = lives - 1
-            print('Letter is not in word')
+            else: 
+                lives = lives - 1
+                print('Letter', used_letters, 'is not in the word')
 
-    elif user_letter in used_letters:
-        print('You have already used that caracter. Try again')
+        elif user_letter in used_letters:
+            print('You have already used that caracter. Try again!')
 
-    else:
-        print('Invalid character. Try again')
+        else:
+            print('Invalid character. Try again!')
 
 
     if lives == 0:
-        print('You loose, sorry. The word was ', word)
+        print('You loose, sorry. The word was', word)
     else:
         print('You guessed the word!', word, '!!')
 
